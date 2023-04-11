@@ -3,7 +3,7 @@
     <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
       <!-- 触底刷新，第一种方案解决首次进入页面就触发onload，使用:immediate-check="false" -->
       <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad" :immediate-check="false" offset="50">
-        <articleitem v-for="obj in list" :key="obj.art_id" :artobj="obj" @disLikeEV="disLikefn" @fankuiEV="fankuifn"></articleitem>
+        <articleitem v-for="obj in list" :key="obj.art_id" :artobj="obj" @disLikeEV="disLikefn" @fankuiEV="fankuifn" @click.native="$router.push(`/artdetail?aid=${obj.art_id}`)"></articleitem>
       </van-list>
     </van-pull-refresh>
 
@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import Articleitem from './Article-item.vue'
+import Articleitem from '@/components/Article-item.vue'
 import { getarticlesListAPI, disLikeAricleAPI, articleReportsAPI } from '@/api/index.js'
 import { Notify } from 'vant'
 export default {

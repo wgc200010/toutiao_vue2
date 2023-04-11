@@ -54,6 +54,13 @@ export const articleReportsAPI = ({ artId, type }) => {
     }
   })
 }
+// 文章详情页
+export const articleDetailAPI = ({ artId }) => {
+  return request({
+    method: 'GET',
+    url: `/v1_0/articles/${artId}`
+  })
+}
 // 更新频道，让更新后的频道可以保存，不会刷新就复原
 export const updateChannelAPI = ({ channels }) => {
   return request({
@@ -71,5 +78,50 @@ export const suggestListAPI = ({ keywords }) => {
     params: {
       q: keywords
     }
+  })
+}
+export const searchresultAPI = ({ page = 1, per_page = 10, q }) => request({
+  url: '/v1_0/search',
+  method: 'GET',
+  params: {
+    page,
+    per_page,
+    q
+  }
+})
+// 关注作者
+export const followedUserAPI = ({ target }) => {
+  return request({
+    url: '/v1_0/user/followings',
+    method: 'POST',
+    data: {
+      target: target
+    }
+  })
+}
+// 取消关注作者
+export const unFollowedUserAPI = ({ uid }) => {
+  return request({
+    // 这uid只是个变量名, 把值拼接在url发给后台(无需指定参数名)
+    url: `/v1_0/user/followings/${uid}`,
+    method: 'DELETE'
+  })
+}
+// 点赞
+export const articleLikeAPI = ({ target }) => {
+  return request({
+    url: '/v1_0/article/likings',
+    method: 'POST',
+    data: {
+      target: target
+    }
+  })
+}
+
+// 取消点赞
+export const articleDisLikeAPI = ({ artId }) => {
+  return request({
+    url: `/v1_0/article/likings/${artId}`,
+    method: 'DELETE'
   })
 }

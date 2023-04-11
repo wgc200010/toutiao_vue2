@@ -6,11 +6,17 @@
         <div class="title-box">
           <span>{{ artobj.title }}</span>
           <!-- 单图 -->
-          <img class="thumb" v-if="artobj.cover.type==1" :src="artobj.cover.images[0]" alt="">
+          <!-- <img class="thumb" v-if="artobj.cover.type==1" :src="artobj.cover.images[0]" alt=""> -->
+          <van-image :src="artobj.cover.images[0]" class="thumb" v-if="artobj.cover.type==1" alt="">
+            <template v-slot:error>加载失败</template>
+          </van-image>
         </div>
         <!-- 多图 -->
         <div class="thumb-box" v-if="artobj.cover.type==3">
-          <img v-for="(imgUrl,index) in artobj.cover.images" :src="imgUrl" alt="" class="thumb" :key="index">
+          <!-- <img v-for="(imgUrl,index) in artobj.cover.images" :src="imgUrl" alt="" class="thumb" :key="index"> -->
+          <van-image v-for="(imgUrl,index) in artobj.cover.images" :src="imgUrl" class="thumb" :key="index" alt="">
+            <template v-slot:error>加载失败</template>
+          </van-image>
         </div>
       </template>
       <!-- label插槽 -->
@@ -22,7 +28,7 @@
             <span>{{ formatTime( artobj.pubdate) }}</span>
           </div>
           <!-- 反馈按钮 -->
-          <van-icon name="cross" @click="show = true" />
+          <van-icon name="cross" @click.stop="show = true" v-if="isshow" />
         </div>
       </template>
     </van-cell>
@@ -38,7 +44,11 @@ import { timeAgo } from '@/utils/date.js'
 import { firstActions, secondActions } from '@/api/report.js'
 export default {
   props: {
-    artobj: Object
+    artobj: Object,
+    isshow: {
+      type: Boolean,
+      default: true
+    }
   },
   data () {
     return {

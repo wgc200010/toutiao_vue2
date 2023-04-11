@@ -6,6 +6,7 @@ import Home from '@/views/Home/home-index.vue'
 import User from '@/views/User/user-index.vue'
 import Search from '@/views/Search/search_index.vue'
 import SearchResult from '@/views/Search/Search_Result.vue'
+import ArtDetail from '@/views/ArticleDetail/ArticleDetail_index.vue'
 Vue.use(VueRouter)
 
 const routes = [{
@@ -34,6 +35,9 @@ const routes = [{
 }, {
   path: '/search/:keywords',
   component: SearchResult
+}, {
+  path: '/artdetail',
+  component: ArtDetail
 }
 ]
 
